@@ -4,31 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_design/models/task.dart';
 import 'package:flutter_design/ui/widgets/task_tile.dart';
 
-class TaskList extends StatefulWidget {
-  const TaskList({
-    super.key,
-  });
+class TaskList extends StatelessWidget {
+  final List<Task> tasks;
 
-  @override
-  State<TaskList> createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
-  List<Task> tasks = [
-    Task(name: "Task name 1"),
-    Task(name: "Task name 2"),
-    Task(name: "Task name 3")
-  ];
+  const TaskList(this.tasks, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return TaskTile(tasks[index], (bool? newValue) {
-          setState(() {
-            tasks[index].toggleDone(newValue!);
-          });
-        });
+        return TaskTile(tasks[index]);
       },
       itemCount: tasks.length,
     );
