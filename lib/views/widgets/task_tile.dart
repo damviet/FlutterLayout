@@ -3,8 +3,10 @@ import 'package:flutter_design/models/task.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
+  final Function(bool?) onTaskToggled;
   const TaskTile(
-    this.task, {
+    this.task,
+    this.onTaskToggled, {
     super.key,
   });
 
@@ -20,7 +22,7 @@ class TaskTile extends StatelessWidget {
       trailing: Checkbox(
         activeColor: Colors.lightBlueAccent,
         // onChanged: checkboxCallback,
-        onChanged: (value) {},
+        onChanged: onTaskToggled,
         value: task.isDone,
       ),
     );
