@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      create: (context) => _homeViewModel,
       child: const MaterialApp(
         home: TasksScreen(),
       ),

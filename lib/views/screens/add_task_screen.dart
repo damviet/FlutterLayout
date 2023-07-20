@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_design/view_models/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen(
-    this.onAddNewTask, {
+  const AddTaskScreen({
     super.key,
   });
-
-  final Function(String?) onAddNewTask;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,9 @@ class AddTaskScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                onAddNewTask(taskName);
+                Provider.of<HomeViewModel>(context, listen: false)
+                    .addNewTask(taskName!);
+                Navigator.pop(context);
               },
               child: const Text(
                 "Add",

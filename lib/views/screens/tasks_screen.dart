@@ -30,12 +30,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
-                  child: AddTaskScreen((String? taskName) {
-                    setState(() {
-                      tasks.add(Task(name: taskName!));
-                      Navigator.pop(context);
-                    });
-                  }),
+                  child: AddTaskScreen(),
                 ),
               );
             },
@@ -101,11 +96,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topRight: Radius.circular(30),
                 ),
               ),
-              child: TaskList(tasks, (int index, bool? value) {
-                setState(() {
-                  tasks[index].toggleDone(value!);
-                });
-              }),
+              child: TaskList(),
             ),
           ),
         ],

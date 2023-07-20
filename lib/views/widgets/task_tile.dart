@@ -1,30 +1,39 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_design/models/task.dart';
+import 'package:flutter_design/view_models/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 class TaskTile extends StatelessWidget {
-  final Task task;
-  final Function(bool?) onTaskToggled;
+  final int index;
   const TaskTile(
-    this.task,
-    this.onTaskToggled, {
+    this.index, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        task.name,
-        style: TextStyle(
-          decoration: task.isDone ? TextDecoration.lineThrough : null,
-        ),
-      ),
-      trailing: Checkbox(
-        activeColor: Colors.lightBlueAccent,
-        // onChanged: checkboxCallback,
-        onChanged: onTaskToggled,
-        value: task.isDone,
-      ),
+    return Consumer<HomeViewModel>(
+      builder: (context, model, child) {
+        return ListTile(
+          title: Text(
+            model.getTaskName(index) ?? "Empty",
+            style: TextStyle(
+              decoration: model.isTaskDone(index) ?? false
+                  ? TextDecoration.lineThrough
+                  : null,
+            ),
+          ),
+          trailing: Checkbox(
+            activeColor: Colors.lightBlueAccent,
+            // onChanged: checkboxCallback,
+            onChanged: (newValue) {
+              model.toggleTask(index, newValue ?? true);
+            },
+            value: model.isTaskDone(index),
+          ),
+        );
+      },
     );
   }
 }
